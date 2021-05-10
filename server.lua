@@ -61,7 +61,7 @@ Citizen.CreateThread(
 		if vRaw and Config.versionCheck then
 			local v = json.decode(vRaw)
 			PerformHttpRequest(
-				'https://raw.githubusercontent.com//version.json',
+				'https://raw.githubusercontent.com/techygamebar/ui-bugreport/main/version.json',
 				function(code, res, headers)
 					if code == 200 then
 						local rv = json.decode(res)
