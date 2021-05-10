@@ -40,8 +40,7 @@ AddEventHandler("ui-bugreport:sendReport", function(data)
 
 
   TriggerClientEvent("ui-bugreport:reportSent", source)
-  --TriggerClientEvent("pNotify:SendNotification", source,{text = "Your bug report was successfully sent to our developers", type = "success", queue = "global", timeout = 4000, layout = "bottomCenter",animation = {open = "gta_effects_open", close = "gta_effects_fade_out"},killer = true})
-
+TriggerClientEvent("QBCore:Notify", src, "Your bug report was successfully sent to our developers"), "success", 5000))
 
 end)
 
@@ -55,30 +54,20 @@ Citizen.CreateThread(function()
 	end
 end)
 
--- Version Check
+
 Citizen.CreateThread(
 	function()
 		local vRaw = LoadResourceFile(GetCurrentResourceName(), 'version.json')
 		if vRaw and Config.versionCheck then
 			local v = json.decode(vRaw)
 			PerformHttpRequest(
-				'https://raw.githubusercontent.com/Swqppingg/FiveM-ui-bugreport/main/version.json',
+				'https://raw.githubusercontent.com//version.json',
 				function(code, res, headers)
 					if code == 200 then
 						local rv = json.decode(res)
 						if rv.version ~= v.version then
 							print(
-								([[^1
--------------------------------------------------------
-ui-bugreport
-UPDATE: %s AVAILABLE
-CHANGELOG: %s
--------------------------------------------------------
-^0]]):format(
-									rv.version,
-									rv.changelog
-								)
-							)
+								([[^1-------------------------------------------------------ui-bugreport UPDATE: %s AVAILABLECHANGELOG: %s-------------------------------------------------------^0]]):format(rv.version,rv.changelog))
 						end
 					else
 						print('^ui-bugreport was unable to check version^0')
